@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller; 
-use Illuminate\Validation\ValidationException;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Producto;
+use App\Modules\Admin\Controller\Controller;
+use App\Models\Producto;
 
 class Producto extends Controller
 {
@@ -17,20 +15,23 @@ class Producto extends Controller
     
 //método para obtener todos los datos registrados de productos.
         public function productoAll(){
+
+            
             $pro = Producto::all();
             $datos =[];
             
             if($pro->isEmpty()){//verificar si en la bd hay registros
-            $data =["estado"=>"error","mensaje"=>"No hay datos guardados"]; 
+                $datos =["estado"=>"error","mensaje"=>"No hay datos guardados"]; 
             return response($data,404);        
             }else{
             foreach($pro as $fila) { 
                 $datos1 = array("id_producto"=>$fila->id_producto,"nombre"=>$fila->nombre);   
                 array_push($datos, $datos1);                            
             }
-            return response($datos, 200);        
-            }
-        }
+            return response($datos, 200); 
+            
+            return view( 'listar' )->with( 'Datos', $datos );
+        }}
 
   //método para elimiar producto registrado
         public function deleteProducto(Request $req){      

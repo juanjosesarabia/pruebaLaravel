@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('listar-productos', function () {
+    return view('listar');
+});
+
+Route::get('/prueba','ProductoController@productoAll');
+
+
+Route::get(
+   '/', 
+   [
+      'as'   => 'app',
+      'uses' => 'ProductoController@productoAll'
+   ]
+);
+
+
+
+/*
+    Route::get("listar-productos",'UsuarioPrueba@editUser'); //Listar productos
+    Route::put("crear-producto",'UsuarioPrueba@editUser'); //Crear productos
+    Route::put('actualizar-producto', '');//actualzar productos
+    Route::delete('eliminar-producto',''); // Eliminar productos
+*/
