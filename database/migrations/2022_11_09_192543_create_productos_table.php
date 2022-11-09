@@ -14,7 +14,8 @@ class CreateProductosTable extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_producto'); 
+            $table->string('nombre', 200)->required();
             $table->timestamps();
         });
     }
